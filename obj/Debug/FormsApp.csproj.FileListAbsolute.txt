@@ -1,0 +1,9 @@
+C:\Users\morgo\source\repos\FormsApp\bin\Debug\FormsApp.exe.config
+C:\Users\morgo\source\repos\FormsApp\bin\Debug\FormsApp.exe
+C:\Users\morgo\source\repos\FormsApp\bin\Debug\FormsApp.pdb
+C:\Users\morgo\source\repos\FormsApp\obj\Debug\FormsApp.csprojAssemblyReference.cache
+C:\Users\morgo\source\repos\FormsApp\obj\Debug\FormsApp.Properties.Resources.resources
+C:\Users\morgo\source\repos\FormsApp\obj\Debug\FormsApp.csproj.GenerateResource.cache
+C:\Users\morgo\source\repos\FormsApp\obj\Debug\FormsApp.csproj.CoreCompileInputs.cache
+C:\Users\morgo\source\repos\FormsApp\obj\Debug\FormsApp.exe
+C:\Users\morgo\source\repos\FormsApp\obj\Debug\FormsApp.pdb
