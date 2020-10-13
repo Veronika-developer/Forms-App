@@ -23,6 +23,8 @@ namespace FormsApp
         PictureBox pic_box;
         TabControl tabControl;
         TabPage page1, page2, page3;
+        ListBox _listbox;
+        bool fullScreen = true;
         public Form1()
         {
             this.Height = 500;
@@ -53,7 +55,10 @@ namespace FormsApp
             tn.Nodes.Add(new TreeNode("Tekstast-TextBox"));
             tn.Nodes.Add(new TreeNode("PictureBox-Pildikast"));
             tn.Nodes.Add(new TreeNode("Kaart-TabControl"));
-            tn.Nodes.Add(new TreeNode("-MessageBox"));
+            tn.Nodes.Add(new TreeNode("MessageBox"));
+            tn.Nodes.Add(new TreeNode("ListBox"));
+            tn.Nodes.Add(new TreeNode("DataGridView"));
+            tn.Nodes.Add(new TreeNode("Menu"));
             tree.Nodes.Add(tn);
             this.Controls.Add(tree);
         }
@@ -167,6 +172,113 @@ namespace FormsApp
                         Controls.Add(lbl);
                     }
                 }
+            }
+            else if (e.Node.Text == "ListBox")
+            {
+                string [] listItems = new string[] { "Sinine", "Kollane", "Roheline", "Punane" };
+
+                _listbox = new ListBox();
+
+                for (int i = 0; i < listItems.Length; i++)
+                {
+                    _listbox.Items.Add(listItems[i]);
+                }
+
+                _listbox.Location = new Point(150,300);
+                _listbox.Width = listItems.Length * 20;
+                _listbox.Height = listItems.Length*15;
+                _listbox.SelectedIndexChanged += _listbox_SelectedIndexChanged;
+                this.Controls.Add(_listbox);
+            }
+            else if (e.Node.Text == "DataGridView")
+            {
+                DataSet _dataset = new DataSet("Näide");
+                _dataset.ReadXml("..//..//XMLFile.xml");
+                DataGridView dgv = new DataGridView();
+                dgv.Location = new Point(200, 200);
+                dgv.Width = 500;
+                dgv.Height = 250;
+                dgv.AutoGenerateColumns = true;
+                dgv.DataMember = "PLANT";
+                dgv.DataSource = _dataset;
+                this.Controls.Add(dgv);
+            }
+            else if (e.Node.Text == "Menu")
+            {
+                MainMenu menu = new MainMenu();
+                MenuItem item = new MenuItem("File");
+                item.MenuItems.Add("EXIT", new EventHandler(item_exit));
+                MenuItem my = new MenuItem("My");
+                my.MenuItems.Add("New", new EventHandler(item_new));
+                my.MenuItems.Add("In full screen", new EventHandler(item_FullScreen));
+                my.MenuItems.Add("Random backcolor", new EventHandler(item_random));
+                menu.MenuItems.Add(item);
+                menu.MenuItems.Add(my);
+                this.Menu = menu;
+            }
+        }
+
+        private void item_random(object sender, EventArgs e)
+        {
+            Random rnd = new Random();
+
+            int R = rnd.Next(0, 255);
+            int G = rnd.Next(0, 255);
+            int B = rnd.Next(0, 255);
+
+            this.BackColor = Color.FromArgb(R,G,B);
+
+        }
+
+        private void item_FullScreen(object sender, EventArgs e)
+        {
+            if (fullScreen == true)
+            {
+                this.WindowState = FormWindowState.Maximized;
+                fullScreen = false;
+            }
+            else
+            {
+                this.WindowState = FormWindowState.Normal;
+                fullScreen = true;
+            }
+            
+        }
+
+        private void item_new(object sender, EventArgs e)
+        {
+            this.Controls.Clear();
+            this.Controls.Add(tree);
+        }
+
+        private void item_exit(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Kas sa oled kindel?","Küsimus", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                this.Close();
+            }
+            
+        }
+
+        private void _listbox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string item = _listbox.SelectedItem.ToString();
+
+            if (item == "Sinine")
+            {
+                _listbox.BackColor = Color.Blue;
+            }
+            if (item == "Kollane")
+            {
+                _listbox.BackColor = Color.Yellow;
+            }
+            if (item == "Roheline")
+            {
+                _listbox.BackColor = Color.Green;
+            }
+            if (item == "Punane")
+            {
+                _listbox.BackColor = Color.Red;
             }
         }
 
